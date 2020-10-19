@@ -23,11 +23,18 @@ app.get('/api/notes', (req, res) => {
 
 
 app.post("/api/notes", (req, res) => {
-    let notes = res.sendFile(patht.join(__dirname, "/db/db.json"))
+    let notes = res.sendFile(path.join(__dirname, "/db/db.json"))
     notes.push(req.body);
+    fs.writeFileSync(path.join(__dirname + "/db/db.json")), JSON.stringify(notes);
+    res.end();
 });
 
-app.delete();
+app.delete("/api/notes:note", (req,res) =>{
+    let notes = JSON.parse(fs.readFileSync(path.join(__dirname,"/db/db.json")));
+    let note = notes.filter(note => note.id !== req.params.id);
+    fs.writeFileSync(path.join(__dirname + "/db/db.json")), JSON.stringify(notes);
+    res.end();
+});
 
 app.listen(PORT, function(){
     console.log("Listening on PORT:" + PORT);
