@@ -8,12 +8,12 @@ const PORT = process.env.PORT || 3000;
 
 app.get('/notes', (req, res) => {
     //gets notes.html and displays on page
-    res.sendFile(path.join(__dirname + 'notes.html'));
+    res.sendFile(path.join(__dirname + '/public/notes.html'));
 });
 
 app.get('/', (req, res) => {
     //gets index.html and displays on page
-    res.sendFile(path.join(__dirname + 'index.html'))
+    res.sendFile(path.join(__dirname + '/public/index.html'))
 });
 
 app.get('/api/notes', (req, res) => {
@@ -31,8 +31,8 @@ app.post("/api/notes", (req, res) => {
 
 app.delete("/api/notes:note", (req,res) =>{
     let notes = JSON.parse(fs.readFileSync(path.join(__dirname,"/db/db.json")));
-    let note = notes.filter(note => note.id !== req.params.id);
-    fs.writeFileSync(path.join(__dirname + "/db/db.json")), JSON.stringify(notes);
+    let newNote = notes.filter(note => note.id !== req.params.id);
+    fs.writeFileSync(path.join(__dirname + "/db/db.json")), JSON.stringify(newNote);
     res.end();
 });
 
