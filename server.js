@@ -5,7 +5,11 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.urlencoded({ extend: true }));
+app.use(express.json());
+app.use("/assets", express.static("public/assets"));
 
+let notes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
 app.get('/notes', (req, res) => {
     //gets notes.html and displays on page
     res.sendFile(path.join(__dirname + '/public/notes.html'));
@@ -23,8 +27,10 @@ app.get('/api/notes', (req, res) => {
 
 
 app.post("/api/notes", (req, res) => {
-    let notes = res.sendFile(path.join(__dirname, "/db/db.json"))
-    notes.push(req.body);
+    let newNote = req.body;
+    console.log(newNote)
+    notes.push(newNote);
+   
     fs.writeFileSync(path.join(__dirname + "/db/db.json")), JSON.stringify(notes);
     res.end();
 });
