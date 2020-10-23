@@ -1,6 +1,6 @@
-![homepage](public/assets/images/homepage.png)
-![notes](public/assets/images/notes.png)
-![delete](public/assets/images/delete.png)
+![homepage](public/assets/images/homepage)
+![notes](public/assets/images/notes)
+![delete](public/assets/images/delete)
 
 # Express-Note-Taker
 A simple way to take notes, delete, and save using a server 
